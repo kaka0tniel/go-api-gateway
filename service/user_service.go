@@ -24,7 +24,7 @@ func NewUserService(cfg *config.Config) *UserService {
 func (s *UserService) CreateUser(data string) (string, error) {
 
 	// url
-	partnerURL := s.Config.TransactionBaseURL
+	partnerURL := s.Config.UserBaseURL
 	endpoint := "/create-user"
 	url := partnerURL + endpoint
 	payload := strings.NewReader("")
@@ -74,7 +74,7 @@ func (s *UserService) CreateUser(data string) (string, error) {
 func (s *UserService) DeleteUser(data string) (string, error) {
 
 	// url
-	partnerURL := s.Config.TransactionBaseURL
+	partnerURL := s.Config.UserBaseURL
 	endpoint := "/delete-user"
 	url := partnerURL + endpoint
 	payload := strings.NewReader("")
@@ -124,7 +124,7 @@ func (s *UserService) DeleteUser(data string) (string, error) {
 func (s *UserService) Login(data string) (string, error) {
 
 	// url
-	partnerURL := s.Config.TransactionBaseURL
+	partnerURL := s.Config.UserBaseURL
 	endpoint := "/login"
 	url := partnerURL + endpoint
 	payload := strings.NewReader("")
@@ -174,7 +174,7 @@ func (s *UserService) Login(data string) (string, error) {
 func (s *UserService) DetailUser(data string) (string, error) {
 
 	// url
-	partnerURL := s.Config.TransactionBaseURL
+	partnerURL := s.Config.UserBaseURL
 	endpoint := "/detail-user"
 	url := partnerURL + endpoint
 	payload := strings.NewReader("")
@@ -224,7 +224,7 @@ func (s *UserService) DetailUser(data string) (string, error) {
 func (s *UserService) UpdateUser(data string) (string, error) {
 
 	// url
-	partnerURL := s.Config.TransactionBaseURL
+	partnerURL := s.Config.UserBaseURL
 	endpoint := "/update-user"
 	url := partnerURL + endpoint
 	payload := strings.NewReader("")
@@ -271,10 +271,10 @@ func (s *UserService) UpdateUser(data string) (string, error) {
 	return string(formattedJSON), nil
 }
 
-func (s *UserService) ListUser(data string) (string, error) {
+func (s *UserService) ListUser() (string, error) {
 
 	// url
-	partnerURL := s.Config.TransactionBaseURL
+	partnerURL := s.Config.UserBaseURL
 	endpoint := "/list-user"
 	url := partnerURL + endpoint
 	payload := strings.NewReader("")
@@ -314,7 +314,7 @@ func (s *UserService) ListUser(data string) (string, error) {
 		return "", err
 	}
 
-	logrus.Infof("HTTP POST Request to %s with data: %s", url, data)
+	logrus.Infof("HTTP POST Request to %s ", url)
 	logrus.Infof("HTTP Response Status: %s", response.Status)
 	logrus.Infof("HTTP Response Body (JSON):\n%s", formattedJSON)
 

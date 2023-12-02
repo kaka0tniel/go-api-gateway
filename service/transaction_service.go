@@ -25,7 +25,7 @@ func (s *TransactionService) CreateInstallment(data string) (string, error) {
 
 	// url
 	partnerURL := s.Config.TransactionBaseURL
-	endpoint := "/create-user"
+	endpoint := "/create-installment"
 	url := partnerURL + endpoint
 	payload := strings.NewReader("")
 
@@ -75,7 +75,7 @@ func (s *TransactionService) CreateLoan(data string) (string, error) {
 
 	// url
 	partnerURL := s.Config.TransactionBaseURL
-	endpoint := "/create-user"
+	endpoint := "/create-loan"
 	url := partnerURL + endpoint
 	payload := strings.NewReader("")
 
@@ -125,7 +125,7 @@ func (s *TransactionService) DetailLoan(data string) (string, error) {
 
 	// url
 	partnerURL := s.Config.TransactionBaseURL
-	endpoint := "/create-user"
+	endpoint := "/detail-loan"
 	url := partnerURL + endpoint
 	payload := strings.NewReader("")
 
@@ -175,7 +175,7 @@ func (s *TransactionService) DetailMaxLoan(data string) (string, error) {
 
 	// url
 	partnerURL := s.Config.TransactionBaseURL
-	endpoint := "/create-user"
+	endpoint := "/detail-max-loan"
 	url := partnerURL + endpoint
 	payload := strings.NewReader("")
 
@@ -221,11 +221,11 @@ func (s *TransactionService) DetailMaxLoan(data string) (string, error) {
 	return string(formattedJSON), nil
 }
 
-func (s *TransactionService) ListInstallment(data string) (string, error) {
+func (s *TransactionService) ListInstallment() (string, error) {
 
 	// url
 	partnerURL := s.Config.TransactionBaseURL
-	endpoint := "/create-user"
+	endpoint := "/list-installment"
 	url := partnerURL + endpoint
 	payload := strings.NewReader("")
 
@@ -264,18 +264,18 @@ func (s *TransactionService) ListInstallment(data string) (string, error) {
 		return "", err
 	}
 
-	logrus.Infof("HTTP POST Request to %s with data: %s", url, data)
+	logrus.Infof("HTTP POST Request to %s", url)
 	logrus.Infof("HTTP Response Status: %s", response.Status)
 	logrus.Infof("HTTP Response Body (JSON):\n%s", formattedJSON)
 
 	return string(formattedJSON), nil
 }
 
-func (s *TransactionService) ListLoan(data string) (string, error) {
+func (s *TransactionService) ListLoan() (string, error) {
 
 	// url
 	partnerURL := s.Config.TransactionBaseURL
-	endpoint := "/create-user"
+	endpoint := "/list-loan"
 	url := partnerURL + endpoint
 	payload := strings.NewReader("")
 
@@ -314,18 +314,18 @@ func (s *TransactionService) ListLoan(data string) (string, error) {
 		return "", err
 	}
 
-	logrus.Infof("HTTP POST Request to %s with data: %s", url, data)
+	logrus.Infof("HTTP POST Request to %s", url)
 	logrus.Infof("HTTP Response Status: %s", response.Status)
 	logrus.Infof("HTTP Response Body (JSON):\n%s", formattedJSON)
 
 	return string(formattedJSON), nil
 }
 
-func (s *TransactionService) ListMaxLoan(data string) (string, error) {
+func (s *TransactionService) ListMaxLoan() (string, error) {
 
 	// url
 	partnerURL := s.Config.TransactionBaseURL
-	endpoint := "/create-user"
+	endpoint := "/list-max-loan"
 	url := partnerURL + endpoint
 	payload := strings.NewReader("")
 
@@ -364,7 +364,7 @@ func (s *TransactionService) ListMaxLoan(data string) (string, error) {
 		return "", err
 	}
 
-	logrus.Infof("HTTP POST Request to %s with data: %s", url, data)
+	logrus.Infof("HTTP POST Request to %s ", url)
 	logrus.Infof("HTTP Response Status: %s", response.Status)
 	logrus.Infof("HTTP Response Body (JSON):\n%s", formattedJSON)
 
@@ -375,7 +375,7 @@ func (s *TransactionService) UpdateMaxLoan(data string) (string, error) {
 
 	// url
 	partnerURL := s.Config.TransactionBaseURL
-	endpoint := "/create-user"
+	endpoint := "/update-max-loan"
 	url := partnerURL + endpoint
 	payload := strings.NewReader("")
 
@@ -425,7 +425,7 @@ func (s *TransactionService) UpdateStatusLoan(data string) (string, error) {
 
 	// url
 	partnerURL := s.Config.TransactionBaseURL
-	endpoint := "/create-user"
+	endpoint := "/update-status-loan"
 	url := partnerURL + endpoint
 	payload := strings.NewReader("")
 
@@ -471,11 +471,11 @@ func (s *TransactionService) UpdateStatusLoan(data string) (string, error) {
 	return string(formattedJSON), nil
 }
 
-func (s *TransactionService) HistoryInstallment(data string) (string, error) {
+func (s *TransactionService) HistoryInstallment() (string, error) {
 
 	// url
 	partnerURL := s.Config.TransactionBaseURL
-	endpoint := "/create-user"
+	endpoint := "/history-installment"
 	url := partnerURL + endpoint
 	payload := strings.NewReader("")
 
@@ -514,7 +514,7 @@ func (s *TransactionService) HistoryInstallment(data string) (string, error) {
 		return "", err
 	}
 
-	logrus.Infof("HTTP POST Request to %s with data: %s", url, data)
+	logrus.Infof("HTTP POST Request to %s", url)
 	logrus.Infof("HTTP Response Status: %s", response.Status)
 	logrus.Infof("HTTP Response Body (JSON):\n%s", formattedJSON)
 
@@ -525,7 +525,7 @@ func (s *TransactionService) UpdateLoan(data string) (string, error) {
 
 	// url
 	partnerURL := s.Config.TransactionBaseURL
-	endpoint := "/create-user"
+	endpoint := "/update-loan"
 	url := partnerURL + endpoint
 	payload := strings.NewReader("")
 
