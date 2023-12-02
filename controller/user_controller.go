@@ -95,6 +95,14 @@ func (c *UserController) LoginHandler(ctx echo.Context) error {
 }
 
 // CallExternalAPIPostHandler is a controller handler for making a POST request to an external API
+// @Summary Register User
+// @Description Detail User
+// @Tags User
+// @Accept json
+// @Produce json
+// @Security BearerAuth
+// @Success 200 {string} result
+// @Router /admin/detail-user [post]
 func (c *UserController) DetailUserHandler(ctx echo.Context) error {
 
 	userID := ctx.Param("id")
@@ -114,6 +122,15 @@ func (c *UserController) DetailUserHandler(ctx echo.Context) error {
 }
 
 // CallExternalAPIPostHandler is a controller handler for making a POST request to an external API
+// @Summary Update User
+// @Description Update User
+// @Tags User
+// @Accept json
+// @Param id path int true "User ID" Format(int64)
+// @Produce json
+// @Security BearerAuth
+// @Success 200 {string} result
+// @Router /admin/update-user/{id} [put]
 func (c *UserController) UpdaetUserHandler(ctx echo.Context) error {
 	// Parse request body to get payload
 	var requestPayload struct {

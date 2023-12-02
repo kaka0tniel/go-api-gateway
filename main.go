@@ -3,14 +3,21 @@ package main
 import (
 	"api-gateway/config"
 	"api-gateway/controller"
+	_ "api-gateway/docs"
 	"api-gateway/service"
 
 	"github.com/go-playground/validator/v10"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 	"github.com/labstack/gommon/log"
+	echoSwagger "github.com/swaggo/echo-swagger"
 )
 
+// @Title API Documentation User Service
+// @Verison 1
+// @Description Api Gateway by Otniel , Dio , Nurman, Dito, Ghifari
+// @Host localhost:8080
+// @BasePath /
 func main() {
 	// Initialize configuration
 	cfg, err := config.InitConfig()
@@ -45,6 +52,15 @@ func main() {
 	e.POST("/admin/delete-user/:id", userController.DeleteUserHandler)
 	e.GET("/admin/detail-loan/:id", transactionController.DetailLoanHandler)
 	e.GET("/admin/detail-max-loan/:id", transactionController.DetailMaxLoanHandler)
+
+	// @Summary Register User
+	// @Description Detail User
+	// @Tags User
+	// @Accept json
+	// @Produce json
+	// @Security BearerAuth
+	// @Success 200 {string} result
+	// @Router /admin/detail-user [post]
 	e.GET("/admin/detail-user", userController.DetailUserHandler)
 	e.GET("/admin/list-installment", transactionController.ListInstallmentHandler)
 	e.GET("/admin/list-loan", transactionController.ListLoanHandler)
@@ -62,6 +78,7 @@ func main() {
 	e.PUT("/customer/update-loan/:id", transactionController.UpdateLoanHandler)
 	e.POST("/login", userController.LoginHandler)
 	e.POST("/register", userController.CreateUserHandler)
+	e.GET("/swagger/*", echoSwagger.WrapHandler)
 
 	// Start the server
 	log.Fatal(e.Start(":" + cfg.Port))
