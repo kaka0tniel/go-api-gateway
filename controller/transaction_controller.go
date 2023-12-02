@@ -17,7 +17,42 @@ func NewTransactionController(srv *service.TransactionService) *TransactionContr
 	return &TransactionController{Service: srv}
 }
 
+type LoanPayload struct {
+	IdUser string `json:"idUser" validate:"required"`
+	Total  string `json:"total" validate:"required"`
+	Tenor  string `json:"tenor" validate:"required"`
+}
+
+type InsPayload struct {
+	IdLoan      string `json:"idLoan" validate:"required"`
+	Total       string `json:"total" validate:"required"`
+	TglJthTempo string `json:"tglJthTempo" validate:"required"`
+}
+
+type GolPayload struct {
+	Golongan string `json:"golongan" validate:"required"`
+	Total    string `json:"total" validate:"required"`
+}
+
+type LoaPayload struct {
+	LoanId string `json:"idLoan" validate:"required"`
+	Status string `json:"status" validate:"required"`
+}
+
+type LoatPayload struct {
+	LoanId string `json:"loanId" validate:"required"`
+	Total  string `json:"total" validate:"required"`
+}
+
 // CallExternalAPIPostHandler is a controller handler for making a POST request to an external API
+// @Summary Create Loan
+// @Tags Loan
+// @Accept json
+// @Param user body LoanPayload true "User object in JSON format" example={"nama":"John Doe","email":"john@example.com","role":"admin","password":"secret"}
+// @Produce json
+// @Security BearerAuth
+// @Success 200 {string} result
+// @Router /customer/create-loan [post]
 func (c *TransactionController) CreateLoanHandler(ctx echo.Context) error {
 	// Parse request body to get payload
 	var requestPayload struct {
@@ -47,6 +82,14 @@ func (c *TransactionController) CreateLoanHandler(ctx echo.Context) error {
 }
 
 // CallExternalAPIPostHandler is a controller handler for making a POST request to an external API
+// @Summary Create Installment
+// @Tags Loan
+// @Accept json
+// @Param user body InsPayload true "User object in JSON format" example={"nama":"John Doe","email":"john@example.com","role":"admin","password":"secret"}
+// @Produce json
+// @Security BearerAuth
+// @Success 200 {string} result
+// @Router /customer/create-installment [post]
 func (c *TransactionController) CreateInstallmentHandler(ctx echo.Context) error {
 	// Parse request body to get payload
 	var requestPayload struct {
@@ -76,6 +119,13 @@ func (c *TransactionController) CreateInstallmentHandler(ctx echo.Context) error
 }
 
 // CallExternalAPIPostHandler is a controller handler for making a POST request to an external API
+// @Summary Detail Loan
+// @Tags Loan
+// @Accept json
+// @Param id path int true "ID" Format(int64)
+// @Security BearerAuth
+// @Success 200 {string} result
+// @Router /customer/detail-loan/{id} [get]
 func (c *TransactionController) DetailLoanHandler(ctx echo.Context) error {
 	// Validate path variable
 	loanId := ctx.Param("id")
@@ -95,6 +145,13 @@ func (c *TransactionController) DetailLoanHandler(ctx echo.Context) error {
 }
 
 // CallExternalAPIPostHandler is a controller handler for making a POST request to an external API
+// @Summary Detail Max Loan
+// @Tags Loan
+// @Accept json
+// @Param id path int true "ID" Format(int64)
+// @Security BearerAuth
+// @Success 200 {string} result
+// @Router /admin/detail-max-loan/:id [get]
 func (c *TransactionController) DetailMaxLoanHandler(ctx echo.Context) error {
 	// Validate path variable
 	loanId := ctx.Param("id")
@@ -114,6 +171,12 @@ func (c *TransactionController) DetailMaxLoanHandler(ctx echo.Context) error {
 }
 
 // CallExternalAPIPostHandler is a controller handler for making a POST request to an external API
+// @Summary List Installment
+// @Tags Loan
+// @Accept json
+// @Security BearerAuth
+// @Success 200 {string} result
+// @Router /admin/list-installment [get]
 func (c *TransactionController) ListInstallmentHandler(ctx echo.Context) error {
 
 	result, err := c.Service.ListInstallment()
@@ -125,6 +188,12 @@ func (c *TransactionController) ListInstallmentHandler(ctx echo.Context) error {
 }
 
 // CallExternalAPIPostHandler is a controller handler for making a POST request to an external API
+// @Summary List Loan admin & customer
+// @Tags Loan
+// @Accept json
+// @Security BearerAuth
+// @Success 200 {string} result
+// @Router /admin/list-loan [get]
 func (c *TransactionController) ListLoanHandler(ctx echo.Context) error {
 
 	result, err := c.Service.ListLoan()
@@ -136,6 +205,12 @@ func (c *TransactionController) ListLoanHandler(ctx echo.Context) error {
 }
 
 // CallExternalAPIPostHandler is a controller handler for making a POST request to an external API
+// @Summary List Max Loan admin & customer
+// @Tags Loan
+// @Accept json
+// @Security BearerAuth
+// @Success 200 {string} result
+// @Router /admin/list-max-loan [get]
 func (c *TransactionController) ListMaxLoanHandler(ctx echo.Context) error {
 
 	result, err := c.Service.ListMaxLoan()
@@ -147,6 +222,14 @@ func (c *TransactionController) ListMaxLoanHandler(ctx echo.Context) error {
 }
 
 // CallExternalAPIPostHandler is a controller handler for making a POST request to an external API
+// @Summary Max Loan admin & customer
+// @Tags Loan
+// @Accept json
+// @Security BearerAuth
+// @Param id path int true "ID" Format(int64)
+// @Param user body GolPayload true "User object in JSON format" example={"nama":"John Doe","email":"john@example.com","role":"admin","password":"secret"}
+// @Success 200 {string} result
+// @Router /admin/update-max-loan/:id [put]
 func (c *TransactionController) UpdateMaxLoanHandler(ctx echo.Context) error {
 	// Validate path variable
 	// Parse path variable
@@ -178,6 +261,14 @@ func (c *TransactionController) UpdateMaxLoanHandler(ctx echo.Context) error {
 }
 
 // CallExternalAPIPostHandler is a controller handler for making a POST request to an external API
+// @Summary Update Status Loan
+// @Tags Loan
+// @Accept json
+// @Security BearerAuth
+// @Param id path int true "ID" Format(int64)
+// @Param user body LoaPayload true "User object in JSON format" example={"nama":"John Doe","email":"john@example.com","role":"admin","password":"secret"}
+// @Success 200 {string} result
+// @Router /admin/update-status-loan/:id [patch]
 func (c *TransactionController) UpdateStatusLoanHandler(ctx echo.Context) error {
 	// Parse request body to get payload
 	var requestPayload struct {
@@ -206,6 +297,12 @@ func (c *TransactionController) UpdateStatusLoanHandler(ctx echo.Context) error 
 }
 
 // CallExternalAPIPostHandler is a controller handler for making a POST request to an external API
+// @Summary Customer History Installment
+// @Tags Loan
+// @Accept json
+// @Security BearerAuth
+// @Success 200 {string} result
+// @Router /customer/history-installment [get]
 func (c *TransactionController) HistoryInstallmentHandler(ctx echo.Context) error {
 
 	result, err := c.Service.HistoryInstallment()
@@ -217,6 +314,14 @@ func (c *TransactionController) HistoryInstallmentHandler(ctx echo.Context) erro
 }
 
 // CallExternalAPIPostHandler is a controller handler for making a POST request to an external API
+// @Summary Update Loan
+// @Tags Loan
+// @Accept json
+// @Param id path int true "ID" Format(int64)
+// @Param user body LoatPayload true "User object in JSON format" example={"nama":"John Doe","email":"john@example.com","role":"admin","password":"secret"}
+// @Security BearerAuth
+// @Success 200 {string} result
+// @Router /customer/update-loan/{id} [put]
 func (c *TransactionController) UpdateLoanHandler(ctx echo.Context) error {
 	// Parse request body to get payload
 	var requestPayload struct {

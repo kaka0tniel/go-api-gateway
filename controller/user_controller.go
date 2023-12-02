@@ -17,7 +17,28 @@ func NewUserController(srv *service.UserService) *UserController {
 	return &UserController{Service: srv}
 }
 
+type CreateUserRequest struct {
+	Nama     string `json:"nama" validate:"required"`
+	Email    string `json:"email" validate:"required"`
+	Role     string `json:"role" validate:"required"`
+	Password string `json:"password" validate:"required"`
+}
+
+type LoginUser struct {
+	Email    string `json:"email" validate:"required"`
+	Password string `json:"password" validate:"required"`
+}
+
 // CallExternalAPIPostHandler is a controller handler for making a POST request to an external API
+// @Summary Create User
+// @Description Membuat user baru
+// @Tags User
+// @Accept json
+// @Param user body CreateUserRequest true "User object in JSON format" example={"nama":"John Doe","email":"john@example.com","role":"admin","password":"secret"}
+// @Produce json
+// @Security BearerAuth
+// @Success 200 {string} result
+// @Router /admin/create-user [post]
 func (c *UserController) CreateUserHandler(ctx echo.Context) error {
 	// Parse request body to get payload
 	var requestPayload struct {
@@ -48,6 +69,15 @@ func (c *UserController) CreateUserHandler(ctx echo.Context) error {
 }
 
 // CallExternalAPIPostHandler is a controller handler for making a POST request to an external API
+// @Summary Delete User
+// @Description Menghapus user by id
+// @Tags User
+// @Accept json
+// @Param id path int true "User ID" Format(int64)
+// @Produce json
+// @Security BearerAuth
+// @Success 200 {string} result
+// @Router /admin/delete-user/{id} [delete]
 func (c *UserController) DeleteUserHandler(ctx echo.Context) error {
 	// Parse request body to get payload
 	userID := ctx.Param("id")
@@ -67,6 +97,15 @@ func (c *UserController) DeleteUserHandler(ctx echo.Context) error {
 }
 
 // CallExternalAPIPostHandler is a controller handler for making a POST request to an external API
+// @Summary Login
+// @Description login
+// @Tags Login
+// @Accept json
+// @Param user body LoginUser true "User object in JSON format" example={"nama":"John Doe","email":"john@example.com","role":"admin","password":"secret"}
+// @Produce json
+// @Security BearerAuth
+// @Success 200 {string} result
+// @Router /login [post]
 func (c *UserController) LoginHandler(ctx echo.Context) error {
 	// Parse request body to get payload
 	var requestPayload struct {
@@ -99,10 +138,11 @@ func (c *UserController) LoginHandler(ctx echo.Context) error {
 // @Description Detail User
 // @Tags User
 // @Accept json
+// @Param id path int true "User ID" Format(int64)
 // @Produce json
 // @Security BearerAuth
 // @Success 200 {string} result
-// @Router /admin/detail-user [post]
+// @Router /admin/detail-user/{id} [get]
 func (c *UserController) DetailUserHandler(ctx echo.Context) error {
 
 	userID := ctx.Param("id")
@@ -161,6 +201,14 @@ func (c *UserController) UpdaetUserHandler(ctx echo.Context) error {
 }
 
 // CallExternalAPIPostHandler is a controller handler for making a POST request to an external API
+// @Summary List User
+// @Description List dari user yang terdaftar
+// @Tags User
+// @Accept json
+// @Produce json
+// @Security BearerAuth
+// @Success 200 {string} result
+// @Router /admin/list-user [post]
 func (c *UserController) ListUserHandler(ctx echo.Context) error {
 
 	result, err := c.Service.ListUser()

@@ -49,19 +49,10 @@ func main() {
 
 	// Define routes
 	e.POST("/admin/create-user", userController.CreateUserHandler)
-	e.POST("/admin/delete-user/:id", userController.DeleteUserHandler)
+	e.DELETE("/admin/delete-user/:id", userController.DeleteUserHandler)
 	e.GET("/admin/detail-loan/:id", transactionController.DetailLoanHandler)
 	e.GET("/admin/detail-max-loan/:id", transactionController.DetailMaxLoanHandler)
-
-	// @Summary Register User
-	// @Description Detail User
-	// @Tags User
-	// @Accept json
-	// @Produce json
-	// @Security BearerAuth
-	// @Success 200 {string} result
-	// @Router /admin/detail-user [post]
-	e.GET("/admin/detail-user", userController.DetailUserHandler)
+	e.GET("/admin/detail-user/:id", userController.DetailUserHandler)
 	e.GET("/admin/list-installment", transactionController.ListInstallmentHandler)
 	e.GET("/admin/list-loan", transactionController.ListLoanHandler)
 	e.GET("/admin/list-max-loan", transactionController.ListMaxLoanHandler)
@@ -74,7 +65,7 @@ func main() {
 	e.GET("/customer/detail-loan/:id", transactionController.DetailLoanHandler)
 	e.GET("/customer/history-installment", transactionController.HistoryInstallmentHandler)
 	e.GET("/customer/list-loan", transactionController.ListLoanHandler)
-	e.GET("/customer/profile", userController.DetailUserHandler)
+	e.GET("/customer/profile/:id", userController.DetailUserHandler)
 	e.PUT("/customer/update-loan/:id", transactionController.UpdateLoanHandler)
 	e.POST("/login", userController.LoginHandler)
 	e.POST("/register", userController.CreateUserHandler)
