@@ -13,7 +13,7 @@ import (
 	echoSwagger "github.com/swaggo/echo-swagger"
 )
 
-// @Title API Documentation User Service
+// @Title API Documentation API Gateway - Kelompok 2
 // @Verison 1
 // @Description Api Gateway by Otniel , Dio , Nurman, Dito, Ghifari
 // @Host localhost:8080
