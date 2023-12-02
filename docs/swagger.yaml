@@ -1,0 +1,453 @@
+basePath: /
+definitions:
+  controller.CreateUserRequest:
+    properties:
+      email:
+        type: string
+      nama:
+        type: string
+      password:
+        type: string
+      role:
+        type: string
+    required:
+    - email
+    - nama
+    - password
+    - role
+    type: object
+  controller.GolPayload:
+    properties:
+      golongan:
+        type: string
+      total:
+        type: string
+    required:
+    - golongan
+    - total
+    type: object
+  controller.InsPayload:
+    properties:
+      idLoan:
+        type: string
+      tglJthTempo:
+        type: string
+      total:
+        type: string
+    required:
+    - idLoan
+    - tglJthTempo
+    - total
+    type: object
+  controller.LoaPayload:
+    properties:
+      idLoan:
+        type: string
+      status:
+        type: string
+    required:
+    - idLoan
+    - status
+    type: object
+  controller.LoanPayload:
+    properties:
+      idUser:
+        type: string
+      tenor:
+        type: string
+      total:
+        type: string
+    required:
+    - idUser
+    - tenor
+    - total
+    type: object
+  controller.LoatPayload:
+    properties:
+      loanId:
+        type: string
+      total:
+        type: string
+    required:
+    - loanId
+    - total
+    type: object
+  controller.LoginUser:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+    required:
+    - email
+    - password
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: Api Gateway by Otniel , Dio , Nurman, Dito, Ghifari
+  title: API Documentation API Gateway - Kelompok 2
+paths:
+  /admin/create-user:
+    post:
+      consumes:
+      - application/json
+      description: Membuat user baru
+      parameters:
+      - description: User object in JSON format
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/controller.CreateUserRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      security:
+      - BearerAuth: []
+      summary: Create User
+      tags:
+      - User
+  /admin/delete-user/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Menghapus user by id
+      parameters:
+      - description: User ID
+        format: int64
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      security:
+      - BearerAuth: []
+      summary: Delete User
+      tags:
+      - User
+  /admin/detail-max-loan/:id:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: ID
+        format: int64
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      security:
+      - BearerAuth: []
+      summary: Detail Max Loan
+      tags:
+      - Loan
+  /admin/detail-user/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Detail User
+      parameters:
+      - description: User ID
+        format: int64
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      security:
+      - BearerAuth: []
+      summary: Register User
+      tags:
+      - User
+  /admin/list-installment:
+    get:
+      consumes:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      security:
+      - BearerAuth: []
+      summary: List Installment
+      tags:
+      - Loan
+  /admin/list-loan:
+    get:
+      consumes:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      security:
+      - BearerAuth: []
+      summary: List Loan admin & customer
+      tags:
+      - Loan
+  /admin/list-max-loan:
+    get:
+      consumes:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      security:
+      - BearerAuth: []
+      summary: List Max Loan admin & customer
+      tags:
+      - Loan
+  /admin/list-user:
+    post:
+      consumes:
+      - application/json
+      description: List dari user yang terdaftar
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      security:
+      - BearerAuth: []
+      summary: List User
+      tags:
+      - User
+  /admin/update-max-loan/:id:
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: ID
+        format: int64
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: User object in JSON format
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/controller.GolPayload'
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      security:
+      - BearerAuth: []
+      summary: Max Loan admin & customer
+      tags:
+      - Loan
+  /admin/update-status-loan/:id:
+    patch:
+      consumes:
+      - application/json
+      parameters:
+      - description: ID
+        format: int64
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: User object in JSON format
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/controller.LoaPayload'
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      security:
+      - BearerAuth: []
+      summary: Update Status Loan
+      tags:
+      - Loan
+  /admin/update-user/{id}:
+    put:
+      consumes:
+      - application/json
+      description: Update User
+      parameters:
+      - description: User ID
+        format: int64
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      security:
+      - BearerAuth: []
+      summary: Update User
+      tags:
+      - User
+  /customer/create-installment:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: User object in JSON format
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/controller.InsPayload'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      security:
+      - BearerAuth: []
+      summary: Create Installment
+      tags:
+      - Loan
+  /customer/create-loan:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: User object in JSON format
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/controller.LoanPayload'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      security:
+      - BearerAuth: []
+      summary: Create Loan
+      tags:
+      - Loan
+  /customer/detail-loan/{id}:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: ID
+        format: int64
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      security:
+      - BearerAuth: []
+      summary: Detail Loan
+      tags:
+      - Loan
+  /customer/history-installment:
+    get:
+      consumes:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      security:
+      - BearerAuth: []
+      summary: Customer History Installment
+      tags:
+      - Loan
+  /customer/update-loan/{id}:
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: ID
+        format: int64
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: User object in JSON format
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/controller.LoatPayload'
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      security:
+      - BearerAuth: []
+      summary: Update Loan
+      tags:
+      - Loan
+  /login:
+    post:
+      consumes:
+      - application/json
+      description: login
+      parameters:
+      - description: User object in JSON format
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/controller.LoginUser'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      security:
+      - BearerAuth: []
+      summary: Login
+      tags:
+      - Login
+swagger: "2.0"
